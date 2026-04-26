@@ -1,13 +1,13 @@
-module ula (
+module alu (
     input  logic [31:0] a,           // Operando A (geralmente RS)
     input  logic [31:0] b,           // Operando B (geralmente RT ou Imediato)
-    input  logic [2:0]  ula_control, // Seletor de operação
+    input  logic [2:0]  alu_control, // Seletor de operação
     output logic [31:0] result,      // Resultado da operação
     output logic        zero         // Flag que indica se o resultado é zero
 );
 
     always_comb begin
-        case (ula_control)
+        case (alu_control)
             3'b000: result = a & b;          // AND
             3'b001: result = a | b;          // OR
             3'b010: result = a + b;          // ADD (Soma)
