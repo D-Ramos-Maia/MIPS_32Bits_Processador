@@ -4,15 +4,21 @@ VERILOG_FILES: dir::*.sv
 CLOCK_PORT: clk
 CLOCK_PERIOD: 10
 
-# Corrigindo o erro de "string to list": áreas devem ser listas [x0, y0, x1, y1]
-DIE_AREA: [0, 0, 500, 500]
-CORE_AREA: [40, 40, 460, 460]
+# --- Solução para PDN-0185 ---
 
-# Removendo o prefixo 'FP_' conforme os avisos de depreciação
-PDN_VOFFSET: 10
-PDN_HOFFSET: 10
-PDN_VPITCH: 80
-PDN_HPITCH: 80
+# 1. Aumentamos a área para dar espaço às trilhas largas de TopMetal1
+# Valores em micra: x0 y0 x1 y1
+DIE_AREA: 0 0 500 500
+CORE_AREA: 40 40 460 460
 
-# Utilização do core
+# 2. Forçamos um offset menor que a largura disponível (11.52um)
+# Colocamos 5 para garantir que caiba com folga
+FP_PDN_VOFFSET: 5
+FP_PDN_HOFFSET: 5
+
+# 3. Aumentamos o espaçamento entre as trilhas para evitar congestionamento
+FP_PDN_VPITCH: 80
+FP_PDN_HPITCH: 80
+
+# 4. Reduzimos a densidade para forçar um espalhamento maior dos componentes
 FP_CORE_UTIL: 20
