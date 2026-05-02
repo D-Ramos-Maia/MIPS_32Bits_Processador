@@ -4,8 +4,6 @@ VERILOG_FILES: dir::*.sv
 CLOCK_PORT: clk
 CLOCK_PERIOD: 10
 
-# --- Solução para PDN-0185 ---
-
 # 1. Aumentamos a área para dar espaço às trilhas largas de TopMetal1
 # Valores em micra: x0 y0 x1 y1
 DIE_AREA: 0 0 500 500
