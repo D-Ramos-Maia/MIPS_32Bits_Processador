@@ -1,5 +1,34 @@
-# LibreLane configuration file
+# Configuração otimizada para o MIPS Single Cycle
 DESIGN_NAME: mips_top
-VERILOG_FILES: dir::*.sv
+VERILOG_FILES: 
+  - ./alu.sv
+  - ./control_unit.sv
+  - ./data_mem.sv
+  - ./instruction_mem.sv
+  - ./mips_top.sv
+  - ./pc.sv
+  - ./register_file.sv
+
+# Definições de Clock
 CLOCK_PORT: clk
-CLOCK_PERIOD: 10
+CLOCK_PERIOD: 20  # Aumentado para 20ns (50MHz) para garantir que o ciclo único feche o tempo
+
+# Estratégia de Área e Densidade
+# O valor de 500x500 é bom para o tamanho do MIPS
+DIE_AREA: 0 0 500 500
+CORE_AREA: 40 40 460 460
+
+# Densidade de instâncias: 20% permite muito espaço para roteamento
+FP_CORE_UTIL: 20
+
+# Configuração da Rede de Distribuição de Energia (PDN)
+# Ajustado para evitar erros de offset e garantir trilhas estáveis
+FP_PDN_VOFFSET: 10
+FP_PDN_HOFFSET: 10
+FP_PDN_VPITCH: 100
+FP_PDN_HPITCH: 100
+
+# Otimização de Roteamento
+# Ajuda a evitar que as ferramentas fiquem presas em loops de roteamento complexos
+ROUTING_CORES: 4
+RT_MAX_LAYER: Met5 # Usa até a camada 5 de metal para facilitar o roteamento
