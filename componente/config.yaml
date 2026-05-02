@@ -1,22 +1,19 @@
-# Configuração MIPS - IHP SG13G2
 DESIGN_NAME: mips_top
 VERILOG_FILES: dir::*.sv
 
-# Clock
 CLOCK_PORT: clk
 CLOCK_PERIOD: 20
 
-# Floorplan - área grande e fixa
 DIE_AREA: [0, 0, 500, 500]
 CORE_AREA: [10, 10, 490, 490]
 PLACE_SITE: CoreSite
 
-# PDN - offset menor para caber na core
 PDN_VOFFSET: 2
 PDN_HOFFSET: 2
 PDN_VPITCH: 50
 PDN_HPITCH: 50
 
-# Roteamento
 DRT_THREADS: 4
 RT_MAX_LAYER: Metal5
+
+QUIT_ON_XOR_ERROR: false
