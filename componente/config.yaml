@@ -6,14 +6,14 @@ VERILOG_FILES: dir::*.sv
 CLOCK_PORT: clk
 CLOCK_PERIOD: 20
 
-# Floorplan
+# Floorplan - área grande e fixa
 DIE_AREA: [0, 0, 500, 500]
-FP_CORE_UTIL: 5
-PLACE_SITE: CoreSite        # <-- CORREÇÃO PRINCIPAL
+CORE_AREA: [10, 10, 490, 490]
+PLACE_SITE: CoreSite
 
-# PDN
-PDN_VOFFSET: 3.5
-PDN_HOFFSET: 3.5
+# PDN - offset menor para caber na core
+PDN_VOFFSET: 2
+PDN_HOFFSET: 2
 PDN_VPITCH: 50
 PDN_HPITCH: 50
 
