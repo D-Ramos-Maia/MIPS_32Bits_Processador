@@ -1,20 +1,23 @@
 module mips_top (
-    input  logic clk,
-    input  logic rst_n
+    input  logic        clk,
+    input  logic        rst_n,
+    output logic [31:0] pc_out,
+    output logic [31:0] alu_result,
+    output logic        mem_write
 );
 
-    // --- Sinais de Interconexão (Fios) ---
-    logic [31:0] pc_out, pc_in, pc_plus_4, pc_branch;
+    // Sinais internos (pc_out e alu_result e mem_write agora são portas)
+    logic [31:0] pc_in, pc_plus_4, pc_branch;
     logic [31:0] instr;
     logic [31:0] rd1, rd2, wd_rf;
     logic [31:0] sign_imm, sign_imm_shl2;
-    logic [31:0] alu_src_b, alu_result;
+    logic [31:0] alu_src_b;
     logic [31:0] read_data;
     logic [4:0]  write_reg;
     logic        zero;
 
-    // --- Sinais de Controle ---
-    logic reg_write, reg_dst, alu_src, branch, mem_write, mem_to_reg, jump;
+    // Sinais de controle
+    logic reg_write, reg_dst, alu_src, branch, mem_to_reg, jump;
     logic [2:0] alu_control;
 
     // --- 1. Busca da Instrução (Fetch) ---
