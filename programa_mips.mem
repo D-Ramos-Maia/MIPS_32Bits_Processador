@@ -1,0 +1,6 @@
+// Endereço 0: addi $s0, $zero, 5
+20100005 
+// Endereço 1: addi $s1, $zero, 10
+2011000a
+// Endereço 2: add $s2, $s0, $s1
+02119020
