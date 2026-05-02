@@ -25,6 +25,11 @@ module register_file_tb;
     always #5 clk = ~clk;
 
     initial begin
+
+        //Esse script gera um arquivo .vcd, remova o comentario caso queira essa função
+        $dumpfile("register_file_tb.vcd"); // O arquivo nasce aqui
+        $dumpvars(0, register_file_tb);   // Aqui ele começa a gravar
+        
         // --- Inicialização ---
         clk = 0;
         we = 0;
