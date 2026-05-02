@@ -3,4 +3,20 @@
 DESIGN_NAME: mips_top
 VERILOG_FILES: dir::*.sv
 CLOCK_PORT: clk
-CLOCK_PERIOD: 10 # 10ns = 100MHz
+CLOCK_PERIOD: 10
+
+# --- Ajustes para resolver o erro PDN-0185 ---
+
+# Define uma área fixa maior para o chip (em micra: x0 y0 x1 y1)
+# 300x300 um é um tamanho seguro para um MIPS pequeno no SG13G2
+DIE_AREA: 0 0 300 300
+CORE_AREA: 10 10 290 290
+
+# Ajusta o offset da malha de energia para caber na área
+# Se o erro diz que o offset é 13.6, vamos reduzi-lo para 5 ou 10
+FP_PDN_VOFFSET: 10
+FP_PDN_HOFFSET: 10
+
+# Aumenta o espaço entre as barras de energia (pitch) para não superlotar o topo
+FP_PDN_VPITCH: 50
+FP_PDN_HPITCH: 50
