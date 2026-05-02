@@ -2,54 +2,49 @@
 
 module mips_top_tb;
 
-    // Sinais para conectar ao Top Level
+    // Sinais de controle
     logic clk;
     logic rst_n;
 
-    // Instanciação do Processador Completo
+    // Instanciação do Processador (DUT)
     mips_top dut (
         .clk(clk),
         .rst_n(rst_n)
     );
 
-    // Geração do Clock (100MHz -> período de 10ns)
+    // Geração do Clock (10ns = 100MHz)
     always #5 clk = ~clk;
 
-    // Procedimento de Teste
+    // Bloco único de simulação
     initial begin
+        // Configuração única de Waveform (Evita os avisos de VCD)
+        $dumpfile("mips_top_tb.vcd");
+        $dumpvars(0, mips_top_tb);
 
-        //Esse script gera um arquivo .vcd, remova o comentario caso queira essa função
-        $dumpfile("mips_top_tb.vcd"); // O arquivo nasce aqui
-        $dumpvars(0, mips_top_tb);   // Aqui ele começa a gravar
-
-        // --- Configurações Iniciais ---
+        // Inicialização
+        $display("----------------------------------------------");
         $display("Iniciando Simulação do Processador MIPS...");
         clk = 0;
-        rst_n = 0; // Ativa o reset (ativo em baixo)
+        rst_n = 0; // Ativa reset
 
-        // Aguarda 2 ciclos e solta o reset
-        #20;
+        // Aguarda o sistema estabilizar e solta o reset
+        #22;       // Solta um pouco depois da borda para evitar metaestabilidade
         rst_n = 1;
         $display("Reset liberado. Executando programa...");
+        $display("----------------------------------------------");
 
-        // Monitoramento de sinais importantes
-        // Você pode adicionar os sinais que quer observar aqui
-        $monitor("Tempo: %0t | PC: %h | Instrução: %h | ALU Res: %h", 
-                 $time, dut.pc_out, dut.instr, dut.alu_result);
+        // Monitoramento no terminal
+        // Adicionei os registradores s0 (16) e s1 (17) para vermos a mágica acontecer
+        $monitor("Tempo: %0t | PC: %h | Instr: %h | ALU: %h | $s0: %h | $s1: %h", 
+                 $time, dut.pc_out, dut.instr, dut.alu_result, 
+                 dut.reg_file.regs[16], dut.reg_file.regs[17]);
 
-        // Deixa o processador rodar por um tempo
-        // Ajuste o tempo conforme o tamanho do seu programa .mem
-        #500; 
+        // Tempo suficiente para rodar o seu programa .mem e o loop de Jump
+        #250; 
 
         $display("----------------------------------------------");
-        $display("Simulação finalizada.");
+        $display("Simulação finalizada com sucesso.");
         $finish;
-    end
-
-    // Opcional: Gerar arquivo para ver as ondas (Waveform) no GTKWave ou ModelSim
-    initial begin
-        $dumpfile("mips_simulation.vcd");
-        $dumpvars(0, mips_top_tb);
     end
 
 endmodule
