@@ -1,21 +1,25 @@
-# Configuração Corrigida para Geometria de PDN (PDK IHP-SG13G2)
+# Configuração MIPS - Ajuste de Geometria Final
 DESIGN_NAME: mips_top
 VERILOG_FILES: dir::*.sv
 
-# Definições de Clock
+# Clock e Timing
 CLOCK_PORT: clk
 CLOCK_PERIOD: 20
 
-# Áreas mantidas conforme seu projeto
+# Áreas de Design
 DIE_AREA: [0, 0, 500, 500]
 CORE_AREA: [40, 40, 460, 460]
 
-PDN_VOFFSET: 5
-PDN_HOFFSET: 5
-PDN_VPITCH: 120
-PDN_HPITCH: 120
+# Offset + Largura (8.4) deve ser < 11.52. 
+# Usando 1.5, temos 1.5 + 8.4 = 9.9 um (Dentro do limite de 11.52)
+PDN_VOFFSET: 1.5
+PDN_HOFFSET: 1.5
 
-# Mantendo as outras configurações de paralelismo e densidade[cite: 2]
+# PITCH aumentado para reduzir a quantidade de trilhas e evitar congestionamento
+PDN_VPITCH: 160
+PDN_HPITCH: 160
+
+# Configurações de Fluxo[cite: 2]
 DRT_THREADS: 4
 FP_CORE_UTIL: 20
 RT_MAX_LAYER: Met5
