@@ -5,8 +5,6 @@ VERILOG_FILES: dir::*.sv
 CLOCK_PORT: clk
 CLOCK_PERIOD: 10
 
-# --- Ajustes para resolver o erro PDN-0185 ---
-
 # Define uma área fixa maior para o chip (em micra: x0 y0 x1 y1)
 # 300x300 um é um tamanho seguro para um MIPS pequeno no SG13G2
 DIE_AREA: 0 0 300 300
