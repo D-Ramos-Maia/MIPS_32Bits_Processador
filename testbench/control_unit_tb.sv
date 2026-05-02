@@ -31,6 +31,11 @@ module control_unit_tb;
     );
 
     initial begin
+
+        //Esse script gera um arquivo .vcd, remova o comentario caso queira essa função
+        $dumpfile("control_unit_tb.vcd"); // O arquivo nasce aqui
+        $dumpvars(0, control_unit_tb);   // Aqui ele começa a gravar
+        
         $display("Iniciando Teste da Unidade de Controle MIPS");
         $display("-------------------------------------------");
 
