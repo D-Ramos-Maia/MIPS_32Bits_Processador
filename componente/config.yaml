@@ -1,25 +1,23 @@
-# Configuração MIPS - Ajuste de Geometria Final
+# Configuração MIPS - Correção de Esconamento de Área
 DESIGN_NAME: mips_top
 VERILOG_FILES: dir::*.sv
 
-# Clock e Timing
+# Clock
 CLOCK_PORT: clk
 CLOCK_PERIOD: 20
 
-# Áreas de Design
+# 1. FORÇAR USO DE ÁREA FIXA:
+# Removemos o FP_CORE_UTIL para evitar que ele encolha o chip.
 DIE_AREA: [0, 0, 500, 500]
 CORE_AREA: [40, 40, 460, 460]
 
-# Offset + Largura (8.4) deve ser < 11.52. 
-# Usando 1.5, temos 1.5 + 8.4 = 9.9 um (Dentro do limite de 11.52)
-PDN_VOFFSET: 1.5
-PDN_HOFFSET: 1.5
+# 2. PDN AJUSTADO:
+# Com a área de 500x500, podemos usar offsets mais seguros.
+PDN_VOFFSET: 5
+PDN_HOFFSET: 5
+PDN_VPITCH: 100
+PDN_HPITCH: 100
 
-# PITCH aumentado para reduzir a quantidade de trilhas e evitar congestionamento
-PDN_VPITCH: 160
-PDN_HPITCH: 160
-
-# Configurações de Fluxo[cite: 2]
+# 3. OUTROS PARÂMETROS:
 DRT_THREADS: 4
-FP_CORE_UTIL: 20
 RT_MAX_LAYER: Met5
