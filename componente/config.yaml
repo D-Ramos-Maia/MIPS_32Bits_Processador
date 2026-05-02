@@ -1,34 +1,24 @@
-# Configuração otimizada para o MIPS Single Cycle
+# Configuração Corrigida para LibreLane (PDK IHP-SG13G2)
 DESIGN_NAME: mips_top
-VERILOG_FILES: 
-  - ./alu.sv
-  - ./control_unit.sv
-  - ./data_mem.sv
-  - ./instruction_mem.sv
-  - ./mips_top.sv
-  - ./pc.sv
-  - ./register_file.sv
+VERILOG_FILES: dir::*.sv
 
 # Definições de Clock
 CLOCK_PORT: clk
-CLOCK_PERIOD: 20  # Aumentado para 20ns (50MHz) para garantir que o ciclo único feche o tempo
+CLOCK_PERIOD: 20
 
-# Estratégia de Área e Densidade
-# O valor de 500x500 é bom para o tamanho do MIPS
-DIE_AREA: 0 0 500 500
-CORE_AREA: 40 40 460 460
+# 1. Correção de Erro: Áreas devem ser listas [x0, y0, x1, y1]
+DIE_AREA: [0, 0, 500, 500]
+CORE_AREA: [40, 40, 460, 460]
 
-# Densidade de instâncias: 20% permite muito espaço para roteamento
+# 2. Correção de Depreciação: Novos nomes para variáveis PDN
+PDN_VOFFSET: 10
+PDN_HOFFSET: 10
+PDN_VPITCH: 100
+PDN_HPITCH: 100
+
+# 3. Correção de Depreciação: Threading
+DRT_THREADS: 4
+
+# Outros parâmetros de densidade e camadas
 FP_CORE_UTIL: 20
-
-# Configuração da Rede de Distribuição de Energia (PDN)
-# Ajustado para evitar erros de offset e garantir trilhas estáveis
-FP_PDN_VOFFSET: 10
-FP_PDN_HOFFSET: 10
-FP_PDN_VPITCH: 100
-FP_PDN_HPITCH: 100
-
-# Otimização de Roteamento
-# Ajuda a evitar que as ferramentas fiquem presas em loops de roteamento complexos
-ROUTING_CORES: 4
-RT_MAX_LAYER: Met5 # Usa até a camada 5 de metal para facilitar o roteamento
+RT_MAX_LAYER: Met5
