@@ -13,8 +13,8 @@ module alu_tb;
 
     initial begin
         //Esse script gera um arquivo .vcd, remova o comentario caso queira essa função
-        //$dumpfile("pc_tb.vcd"); // O arquivo nasce aqui
-        //$dumpvars(0, alu_tb);   // Aqui ele começa a gravar
+        $dumpfile("pc_tb.vcd"); // O arquivo nasce aqui
+        $dumpvars(0, alu_tb);   // Aqui ele começa a gravar
         
         $display("Iniciando teste da ULA...");
 
