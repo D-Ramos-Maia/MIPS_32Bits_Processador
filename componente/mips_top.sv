@@ -71,10 +71,10 @@ module mips_top (
     assign alu_src_b = alu_src ? sign_imm : rd2;
 
     alu main_alu (
-        .src_a(rd1),
-        .src_b(alu_src_b),
+        .a(rd1),
+        .b(alu_src_b),
         .alu_control(alu_control),
-        .alu_result(alu_result),
+        .result(alu_result),
         .zero(zero)
     );
 
