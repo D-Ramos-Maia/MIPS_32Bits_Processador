@@ -1,0 +1,6 @@
+# LibreLane configuration file
+
+DESIGN_NAME: Processador_MIPS_32bits
+VERILOG_FILES: dir::*.sv
+CLOCK_PORT: clk
+CLOCK_PERIOD: 10 # 10ns = 100MHz
