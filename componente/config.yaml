@@ -7,14 +7,18 @@ CLOCK_PERIOD: 10
 
 # Define uma área fixa maior para o chip (em micra: x0 y0 x1 y1)
 # 300x300 um é um tamanho seguro para um MIPS pequeno no SG13G2
-DIE_AREA: 0 0 300 300
-CORE_AREA: 10 10 290 290
+# Aumentando drasticamente a área para o PDN respirar
+# O erro diz que 11.52um é pouco, vamos dobrar o tamanho do núcleo
+FP_CORE_UTIL: 20
+DIE_AREA: 0 0 500 500
+CORE_AREA: 40 40 460 460
 
-# Ajusta o offset da malha de energia para caber na área
-# Se o erro diz que o offset é 13.6, vamos reduzi-lo para 5 ou 10
-FP_PDN_VOFFSET: 10
-FP_PDN_HOFFSET: 10
+# Forçando a redução dos offsets e ajuste do passo (pitch)
+# Isso diz ao OpenROAD para começar a malha mais perto do centro ou da borda com folga
+FP_PDN_VOFFSET: 20
+FP_PDN_HOFFSET: 20
+FP_PDN_VPITCH: 100
+FP_PDN_HPITCH: 100
 
-# Aumenta o espaço entre as barras de energia (pitch) para não superlotar o topo
-FP_PDN_VPITCH: 50
-FP_PDN_HPITCH: 50
+# Parâmetros específicos para evitar o erro PDN-0185
+PDN_CFG_VIA_VARY_OFFSET: 1
