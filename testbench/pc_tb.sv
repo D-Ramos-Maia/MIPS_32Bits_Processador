@@ -23,8 +23,8 @@ module pc_tb;
     initial begin
 
         //Esse script gera um arquivo .vcd, remova o comentario caso queira essa função
-        $dumpfile("pc_tb.vcd"); // O arquivo nasce aqui
-        $dumpvars(0, pc_tb);   // Aqui ele começa a gravar
+        //$dumpfile("pc_tb.vcd"); // O arquivo nasce aqui
+        //$dumpvars(0, pc_tb);   // Aqui ele começa a gravar
         
         // --- Inicialização ---
         clk = 0;
