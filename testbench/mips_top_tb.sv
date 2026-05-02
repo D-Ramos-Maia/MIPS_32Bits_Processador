@@ -17,6 +17,11 @@ module mips_top_tb;
 
     // Procedimento de Teste
     initial begin
+
+        //Esse script gera um arquivo .vcd, remova o comentario caso queira essa função
+        $dumpfile("mips_top_tb.vcd"); // O arquivo nasce aqui
+        $dumpvars(0, mips_top_tb);   // Aqui ele começa a gravar
+
         // --- Configurações Iniciais ---
         $display("Iniciando Simulação do Processador MIPS...");
         clk = 0;
