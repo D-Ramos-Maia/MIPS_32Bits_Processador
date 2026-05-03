@@ -32,9 +32,9 @@ module mips_top_tb;
     // Bloco principal de simulação
     // -------------------------------------------------------
     initial begin
-        // Waveform dump
-        $dumpfile("mips_top_tb.vcd");
-        $dumpvars(0, mips_top_tb);
+    //----Esse script gera um arquivo .vcd, remova o comentario caso queira essa função----
+        //$dumpfile("mips_top_tb.vcd");
+        //$dumpvars(0, mips_top_tb);
 
         $display("==============================================");
         $display("  Simulação do Processador MIPS 32-bit");
