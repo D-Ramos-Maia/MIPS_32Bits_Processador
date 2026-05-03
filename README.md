@@ -1,5 +1,5 @@
 
-Este documento fornece um resumo técnico sobre o funcionamento e a estrutura de um processador MIPS (Microprocessor without Interlocked Pipeline Stages) de 32 bits implementado em uma organização de **ciclo único**.
+Este documento fornece um resumo técnico sobre o funcionamento e a estrutura de um processador MIPS de 32 bits implementado em uma organização de **ciclo único**.
 
 ---
 
