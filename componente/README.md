@@ -51,11 +51,14 @@ $ make start
 Once done, run the following commands in sequence:
 
 ```Bash
-# Enters the shared folder; everything done there is permanent. cd shared
+# Enters the shared folder; everything done there is permanent. 
+cd shared
 
-# Downloads the repository from GitHub. git clone https://github.com/D-Ramos-Maia/MIPS_32Bits_Processador.git
+# Downloads the repository from GitHub. 
+git clone https://github.com/D-Ramos-Maia/MIPS_32Bits_Processador.git
 
-# Enters the component folder. cd MIPS_32Bits_Processador
+# Enters the component folder. 
+cd MIPS_32Bits_Processador
 cd componente
 
 # Views the design. librelane --pdk ihp-sg13g2 config.yaml --last-run --flow OpenInOpenROAD
