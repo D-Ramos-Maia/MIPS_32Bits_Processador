@@ -63,7 +63,3 @@ A Unidade de Controle é o "cérebro" do processador. Ela recebe os opcodes da i
 5. No final do ciclo (borda de descida ou próxima subida), o resultado é gravado nos registradores ou memória e o PC é atualizado.
 
 Este modelo é fundamental para o ensino de arquitetura de computadores por sua clareza visual e lógica direta, servindo de base para o estudo de técnicas mais avançadas como o **Pipelining**.
-"""
-
-with open("resumo_mips_32bit_ciclo_unico.md", "w", encoding="utf-8") as f:
-    f.write(content)
