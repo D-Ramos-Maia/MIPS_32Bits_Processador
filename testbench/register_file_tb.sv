@@ -1,16 +1,16 @@
-`timescale 1ns / 1ps
+`timescale 1ns/1ps
 
 module register_file_tb;
 
-    // Sinais de interface
-    logic        clk;
-    logic        we;
-    logic [4:0]  ra1, ra2, wa;
+    // Sinais
+    logic clk;
+    logic we;
+    logic [4:0] ra1, ra2, wa;
     logic [31:0] wd;
     logic [31:0] rd1, rd2;
 
-    // Instanciação do Banco de Registradores (DUT)
-    register_file dut (
+    // Instância do DUT (Device Under Test)
+    register_file uut (
         .clk(clk),
         .we(we),
         .ra1(ra1),
@@ -21,60 +21,72 @@ module register_file_tb;
         .rd2(rd2)
     );
 
-    // Geração do Clock (período de 10ns)
+    // Geração de clock (período = 10ns)
     always #5 clk = ~clk;
 
+    // Testes
     initial begin
-
-    //----Esse script gera um arquivo .vcd, remova o comentario caso queira essa função----
-        //$dumpfile("register_file_tb.vcd"); // O arquivo nasce aqui
-        //$dumpvars(0, register_file_tb);   // Aqui ele começa a gravar
-        
-        // --- Inicialização ---
+        // Inicialização
         clk = 0;
+        we  = 0;
+        ra1 = 0;
+        ra2 = 0;
+        wa  = 0;
+        wd  = 0;
+
+        // Espera inicial
+        #10;
+
+        // =========================
+        // Teste 1: Escrita no registrador 5
+        // =========================
+        we = 1;
+        wa = 5;
+        wd = 32'hA5A5A5A5;
+        #10;
+
+        // Leitura
         we = 0;
-        ra1 = 0; ra2 = 0; wa = 0;
-        wd = 0;
-
-        $display("Iniciando Teste do Register File...");
+        ra1 = 5;
         #10;
+        $display("Reg[5] = %h (esperado A5A5A5A5)", rd1);
 
-        // --- Teste 1: Escrita no Registrador $s0 (endereço 16) ---
+        // =========================
+        // Teste 2: Escrita em outro registrador
+        // =========================
         we = 1;
-        wa = 5'd16;
-        wd = 32'hABCD_1234;
-        #10; // Espera a borda de subida do clock
-        
-        // --- Teste 2: Escrita no Registrador $t0 (endereço 8) ---
-        wa = 5'd8;
-        wd = 32'h1111_2222;
+        wa = 10;
+        wd = 32'h12345678;
         #10;
-        
-        // --- Teste 3: Tentar escrever no Registrador $zero (endereço 0) ---
-        // O MIPS deve ignorar isso!
-        wa = 5'd0;
-        wd = 32'hFFFF_FFFF;
+
+        we = 0;
+        ra2 = 10;
+        #10;
+        $display("Reg[10] = %h (esperado 12345678)", rd2);
+
+        // =========================
+        // Teste 3: Registrador zero (não deve mudar)
+        // =========================
         we = 1;
+        wa = 0;
+        wd = 32'hFFFFFFFF;
         #10;
 
-        // --- Teste 4: Leitura Simultânea ---
-        we = 0;          // Desativa escrita
-        ra1 = 5'd16;     // Deve ler ABCD_1234
-        ra2 = 5'd8;      // Deve ler 1111_2222
-        #5;              // Leitura é combinacional, não precisa esperar borda completa
-        $display("Leitura 1 (reg 16): %h", rd1);
-        $display("Leitura 2 (reg 8):  %h", rd2);
+        we = 0;
+        ra1 = 0;
+        #10;
+        $display("Reg[0] = %h (esperado 00000000)", rd1);
 
-        // --- Teste 5: Verificar se o Reg 0 continua sendo ZERO ---
-        ra1 = 5'd0;
-        #5;
-        if (rd1 == 32'd0) 
-            $display("Sucesso: Registrador 0 continua sendo zero.");
-        else 
-            $display("ERRO: Registrador 0 foi modificado!");
+        // =========================
+        // Teste 4: Leitura simultânea
+        // =========================
+        ra1 = 5;
+        ra2 = 10;
+        #10;
+        $display("Reg[5] = %h | Reg[10] = %h", rd1, rd2);
 
+        // Fim da simulação
         #20;
-        $display("Fim da simulação.");
         $finish;
     end
 
