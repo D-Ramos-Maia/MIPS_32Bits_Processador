@@ -2,7 +2,7 @@
 
 To use any element, use the Docker tools `UNIC-CASS` (https://unic-cass.github.io/training/2.0-env-setup-prerequisites.html), run versions 2.0 to 2.3.
 
-Once installed, use the tools demonstrated in (https://unic-cass.github.io/training/4.1-create-design-and-simulate.html) to generate `.vcd` files, which in practice are used to test the components in the `component` folder, using the elements from that folder.
+Once installed, use the tools demonstrated in (https://unic-cass.github.io/training/4.1-create-design-and-simulate.html) to generate `.vcd` files, which in practice are used to test the components in the `componente` folder, using the elements from that folder.
 
 ---
 ---
