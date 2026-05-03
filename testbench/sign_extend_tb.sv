@@ -8,9 +8,9 @@ module sign_extend_tb;
 
     initial begin
 
-        //Esse script gera um arquivo .vcd, remova o comentario caso queira essa função
-        $dumpfile("sign_extend_tb.vcd"); // O arquivo nasce aqui
-        $dumpvars(0, sign_extend_tb);   // Aqui ele começa a gravar
+    //----Esse script gera um arquivo .vcd, remova o comentario caso queira essa função----
+        //$dumpfile("sign_extend_tb.vcd"); // O arquivo nasce aqui
+        //$dumpvars(0, sign_extend_tb);   // Aqui ele começa a gravar
         
         // Teste valor positivo (5)
         a = 16'h0005;
