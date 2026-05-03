@@ -1,4 +1,4 @@
-#1. What are they?
+# 1. What are they?
 
 What each component does.
 
