@@ -61,7 +61,8 @@ git clone https://github.com/D-Ramos-Maia/MIPS_32Bits_Processador.git
 cd MIPS_32Bits_Processador
 cd componente
 
-# Views the design. librelane --pdk ihp-sg13g2 config.yaml --last-run --flow OpenInOpenROAD
+# Views the design. 
+librelane --pdk ihp-sg13g2 config.yaml --last-run --flow OpenInOpenROAD
 ```
 
 This is explained much better in (https://unic-cass.github.io/training/4.2-implementation-using-librelane.html).
