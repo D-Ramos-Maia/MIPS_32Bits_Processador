@@ -29,3 +29,24 @@ O que cada componente faz.
 - `mips_top.sv`: É o módulo de nível superior (Top Level). Ele serve como o "envelope" que conecta todos os componentes listados acima para formar o processador completo.
 - `programa_mips.mem`: Contém o código de máquina (em hexadecimal ou binário) que será carregado na memória de instruções para ser executado pelo processador.
 - `config.yaml`: Arquivo de configuração, provavelmente utilizado pelas ferramentas de síntese ou pelo fluxo OpenROAD para definir parâmetros de produção do chip.
+
+# 2. Pré-requisitos para executar o fluxograma
+
+As ferramentas usadas para fazermos o fluxograma são ferramentas de código aberto que são voltadas para o sistema operacional `Linux`, portanto para podermos executar ele precisamos de um sistema operacional `Linux`.
+
+
+Caso esteja em um ambiente `Windows`, basta instalar o `Ubutu` via `wsl`, no `PowerShell` ou o `Prompt de Comando` como Administrador, execute o comando:
+
+```Bash 
+wsl --install
+``` 
+
+Uma vez que tenha um sistema operacional `Linux`, siga os passos descritos em (https://unic-cass.github.io/training/2.0-env-setup-prerequisites.html), execute os passos 2.0 a 2.3 por completo, para que tenhamos o ambiente para podermos implementar o fluxo por completo. 
+
+
+
+
+
+
+
+
