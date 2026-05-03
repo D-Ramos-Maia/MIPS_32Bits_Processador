@@ -16,8 +16,8 @@ module data_mem_tb;
     initial begin
 
         //Esse script gera um arquivo .vcd, remova o comentario caso queira essa função
-        $dumpfile("data_mem_tb.vcd"); // O arquivo nasce aqui
-        $dumpvars(0, data_mem_tb);   // Aqui ele começa a gravar
+        //$dumpfile("data_mem_tb.vcd"); // O arquivo nasce aqui
+        //$dumpvars(0, data_mem_tb);   // Aqui ele começa a gravar
         
         clk = 0; we = 0; addr = 0; wd = 0;
         $display("Iniciando teste da Memória de Dados...");
