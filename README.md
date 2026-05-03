@@ -1,4 +1,82 @@
 
+This document provides a technical summary of the operation and structure of a 32-bit MIPS (Microprocessor without Interlocked Pipeline Stages) processor implemented in a **single-cycle** organization[cite: 2].
+
+---
+
+## 1. What is a Single-Cycle MIPS Processor?
+
+A **single-cycle** processor is an implementation of the MIPS architecture where every instruction is executed entirely within a single clock cycle[cite: 2]. This means the clock period must be long enough to accommodate the slowest instruction (usually the memory load instruction, `lw`)[cite: 2].
+
+### Key Characteristics:
+* **CPI (Cycles Per Instruction) = 1**: Every instruction takes exactly one cycle[cite: 2].
+* **Control Simplicity**: The control logic is purely combinational[cite: 2].
+* **Limited Performance**: The clock is determined by the "critical path" (the most time-consuming instruction), which limits the operating frequency compared to multi-cycle or pipelined versions[cite: 2].
+
+---
+
+## 2. Main Components (Datapath)
+
+The "datapath" is the set of functional units that operate on data[cite: 2]. The primary components are:
+
+1. **Program Counter (PC)**: A 32-bit register that stores the address of the next instruction to be executed[cite: 2].
+2. **Instruction Memory**: Stores the program code. Given an address from the PC, it provides the 32-bit instruction[cite: 2].
+3. **Register File**: Contains 32 general-purpose registers ($s0, $t0, etc.). It allows reading two registers and writing to one simultaneously[cite: 2].
+4. **Arithmetic Logic Unit (ALU)**: Performs mathematical calculations (addition, subtraction) and logical operations (AND, OR)[cite: 2].
+5. **Data Memory**: Stores the data manipulated by the program (used by `lw` and `sw` instructions)[cite: 2].
+6. **Sign Extension Unit**: Converts 16-bit immediate values into 32 bits, preserving the sign[cite: 2].
+
+---
+
+## 3. The 5 Execution Stages
+
+Although they occur within a single cycle, the data flow logically passes through five stages:
+
+1. **Instruction Fetch (IF)**: The PC sends the address to the Instruction Memory, which returns the instruction. The PC is updated to `PC + 4`[cite: 2].
+2. **Instruction Decode and Register Read (ID)**: The Control Unit analyzes the instruction to determine the required action and reads the necessary values from the Register File[cite: 2].
+3. **Execution (EX)**: The ALU performs the operation (e.g., adding two numbers or calculating a memory address)[cite: 2].
+4. **Memory Access (MEM)**: If it is a load (`lw`) or store (`sw`) instruction, the processor accesses the Data Memory[cite: 2].
+5. **Write Back (WB)**: The result from the ALU or the data read from memory is written back to the Register File[cite: 2].
+
+---
+
+## 4. Control Unit
+
+The Control Unit is the "brain" of the processor. It receives the instruction opcodes and generates signals that activate or deactivate components[cite: 2].
+
+| Control Signal | Function |
+| :--- | :--- |
+| **RegDst** | Determines which instruction field indicates the destination register[cite: 2]. |
+| **ALUSrc** | Determines if the ALU receives the second input from a register or an immediate value[cite: 2]. |
+| **MemtoReg** | Determines if the value written to the register comes from the ALU or memory[cite: 2]. |
+| **RegWrite** | Authorizes writing to the Register File[cite: 2]. |
+| **MemRead / MemWrite** | Authorizes reading from or writing to the Data Memory[cite: 2]. |
+| **Branch** | Indicates if the instruction is a conditional branch (e.g., `beq`)[cite: 2]. |
+
+---
+
+## 5. Operational Summary
+
+1. The cycle begins with the rising edge of the clock[cite: 2].
+2. The instruction is fetched and decoded[cite: 2].
+3. Control signals configure the multiplexers and functional units[cite: 2].
+4. Data flows through the ALU and Memory[cite: 2].
+5. At the end of the cycle (falling edge or next rising edge), the result is recorded in the registers or memory, and the PC is updated[cite: 2].
+
+This model is fundamental for teaching computer architecture due to its visual clarity and direct logic, serving as a foundation for studying advanced techniques like **Pipelining**[cite: 2].
+
+---
+
+## 6. Repository Contents
+
+This repository contains all the files necessary for the design, testing, and physical production of the processor[cite: 2].
+
+* **`componente` folder**: Contains the source code for all the fundamental blocks required for processor manufacturing[cite: 2].
+* **`testbench` folder**: Includes the test modules that individually validate each component from the previous folder[cite: 2].
+* **`Arquivos_.vcd` folder**: Contains waveform files (.vcd) that record the temporal behavior of components during tests[cite: 2].
+* **`MIPS_32bits.gds` file**: This is the final physical layout file. It integrates all components and is ready to be sent to production (foundry)[cite: 2].
+
+---
+
 Este documento fornece um resumo técnico sobre o funcionamento e a estrutura de um processador MIPS de 32 bits implementado em uma organização de **ciclo único**.
 
 ---
