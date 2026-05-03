@@ -43,6 +43,33 @@ wsl --install
 
 Uma vez que tenha um sistema operacional `Linux`, siga os passos descritos em (https://unic-cass.github.io/training/2.0-env-setup-prerequisites.html), execute os passos 2.0 a 2.3 por completo, para que tenhamos o ambiente para podermos implementar o fluxo por completo. 
 
+# 3. Executando o fluxograma
+
+Uma vez com o Docker `UNIC-CASS` estiver instalado, o execute:
+
+```Bash
+$ cd $HOME/projects/uniccass-design-tools
+$ make start
+```
+
+Uma vez feito execute os seguintes comando em sequência:
+
+```Bash
+# Entra na pasta shared, tudo o que é feito nela é permanente
+cd shared
+
+# Baixar o repositório do github
+git clone https://github.com/D-Ramos-Maia/MIPS_32Bits_Processador.git
+
+# Entra na pasta componente
+cd MIPS_32Bits_Processador
+cd componente
+
+# Ver o design
+librelane --pdk ihp-sg13g2 config.yaml --last-run --flow OpenInOpenROAD
+```
+
+Isso é explicado bem melhor em (https://unic-cass.github.io/training/4.2-implementation-using-librelane.html).
 
 
 
