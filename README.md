@@ -1,4 +1,3 @@
-content = """# Arquitetura MIPS 32-bit: Processador de Ciclo Único
 
 Este documento fornece um resumo técnico sobre o funcionamento e a estrutura de um processador MIPS (Microprocessor without Interlocked Pipeline Stages) de 32 bits implementado em uma organização de **ciclo único**.
 
