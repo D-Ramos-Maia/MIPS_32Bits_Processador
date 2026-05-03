@@ -2,7 +2,7 @@
 
 O que cada componente faz.
 
-##Unidades de Processamento e Memória
+## Unidades de Processamento e Memória
 
 - `alu.sv` *(ULA)*: É a Unidade Lógica e Aritmética. Ela realiza as operações matemáticas (como soma e subtração) e lógicas (como AND e OR) solicitadas pela instrução.
 
@@ -15,4 +15,4 @@ O que cada componente faz.
 
 - `data_mem.sv` *(Memória de Dados)*: É onde o processador armazena informações temporárias durante a execução (usada pelas instruções `lw` para carregar e `sw` para salvar dados).
 
-##Controle e Fluxo
+## Controle e Fluxo
