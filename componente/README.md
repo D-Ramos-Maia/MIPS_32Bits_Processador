@@ -26,6 +26,6 @@ O que cada componente faz.
 - `sign_extend.sv` *(Extensor de Sinal)*: Pega valores "imediatos" de 16 bits (números pequenos embutidos na instrução) e os transforma em 32 bits para que possam ser processados pela ULA.
 
 ## Integração e Configuração
-- ´mips_top.sv`: É o módulo de nível superior (Top Level). Ele serve como o "envelope" que conecta todos os componentes listados acima para formar o processador completo.
+- `mips_top.sv`: É o módulo de nível superior (Top Level). Ele serve como o "envelope" que conecta todos os componentes listados acima para formar o processador completo.
 - `programa_mips.mem`: Contém o código de máquina (em hexadecimal ou binário) que será carregado na memória de instruções para ser executado pelo processador.
 - `config.yaml`: Arquivo de configuração, provavelmente utilizado pelas ferramentas de síntese ou pelo fluxo OpenROAD para definir parâmetros de produção do chip.
