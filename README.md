@@ -67,6 +67,9 @@ Este modelo é fundamental para o ensino de arquitetura de computadores por sua 
 ## 6. O que há no repositório 
 
 Detalhes do que há nesse repositório. O objetivo final deste repositório é ter os componentes necessários para a produção da mesma. Todos os componentes necessários para tal estão na pasta `componente`.
+
 As outras pastas têm uma função distinta. E o arquivo `MIPS_32bits.gds` já é o resultado final do que esses componentes em conjuntos, já prontos para a produção.
+
 A pasta `testbench` tem componentes que testam todos os componentes da pasta `componente`.
+
 E por fim a pasta `Arquivos_.vcd` tem arquivos .vcd que descrevem formas de onda de cada componente mediante certos estímulos os mesmo que o seu equivalente de mesmo nome gera na pasta `testbench`.
