@@ -15,9 +15,9 @@ module instruction_mem_tb;
     // Bloco de estímulos
     initial begin
 
-        //Esse script gera um arquivo .vcd, remova o comentario caso queira essa função
-        $dumpfile("instruction_mem_tb.vcd"); // O arquivo nasce aqui
-        $dumpvars(0, instruction_mem_tb);   // Aqui ele começa a gravar
+    //----Esse script gera um arquivo .vcd, remova o comentario caso queira essa função----
+        //$dumpfile("instruction_mem_tb.vcd"); // O arquivo nasce aqui
+        //$dumpvars(0, instruction_mem_tb);   // Aqui ele começa a gravar
         
         $display("Iniciando teste da Memória de Instruções MIPS...");
         $display("----------------------------------------------");
