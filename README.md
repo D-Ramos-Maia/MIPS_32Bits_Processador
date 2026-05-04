@@ -1,4 +1,4 @@
-![CPU MIPS-32bits](Capturar4.JPG)
+![CPU MIPS-32bits](https://github.com/D-Ramos-Maia/Fotos/blob/2bca389f25962b48c523029737afb6121b83fd96/Capturar4.JPG)
 
 This document provides a technical summary of the operation and structure of a 32-bit MIPS processor implemented in a **single-cycle** organization.
 
