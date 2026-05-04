@@ -1,19 +1,45 @@
+# Nome do design principal (top module do projeto)
 DESIGN_NAME: mips_top
+
+# Lista de arquivos Verilog/SystemVerilog
+# "dir::*.sv" indica que todos os arquivos .sv do diretório serão incluídos
 VERILOG_FILES: dir::*.sv
 
+# Porta de clock principal do design
 CLOCK_PORT: clk
+
+# Período do clock em nanosegundos (20 ns = 50 MHz)
 CLOCK_PERIOD: 20
 
+# Área total do chip (Die) em unidades de layout (geralmente micrômetros)
+# Formato: [x_min, y_min, x_max, y_max]
 DIE_AREA: [0, 0, 500, 500]
+
+# Área do núcleo (Core), onde os componentes serão posicionados
+# Deve estar dentro do DIE_AREA
 CORE_AREA: [10, 10, 490, 490]
+
+# Tipo de célula base usada no placement (depende da tecnologia)
 PLACE_SITE: CoreSite
 
+# Offset vertical da malha de alimentação (PDN - Power Distribution Network)
 PDN_VOFFSET: 2
+
+# Offset horizontal da malha de alimentação
 PDN_HOFFSET: 2
+
+# Distância entre trilhas verticais da rede de energia
 PDN_VPITCH: 50
+
+# Distância entre trilhas horizontais da rede de energia
 PDN_HPITCH: 50
 
+# Número de threads usadas no roteamento detalhado (DRT)
 DRT_THREADS: 4
+
+# Camada máxima de metal usada no roteamento
 RT_MAX_LAYER: Metal5
 
+# Define se o fluxo deve parar em caso de erro de verificação (XOR)
+# false = continua mesmo com erro, erro de falso positivo
 QUIT_ON_XOR_ERROR: false
