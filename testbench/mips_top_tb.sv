@@ -100,13 +100,30 @@ module mips_top_tb;
         // =====================================================================
         //  TESTE 1: Reset
         // =====================================================================
+
+
+        // =====================================================================
+        //  TESTE 1: Reset
+        // =====================================================================
+// =====================================================================
+        //  TESTE 1: Reset
+        // =====================================================================
         $display("\n--- BLOCO 1: Reset do Processador ---");
 
-        clk   = 0;
-        rst_n = 0;  // Ativa reset (ativo baixo)
+        // Garante que rst_n comece em 0 e aguarda 2 bordas de subida
+        rst_n = 0;
+        repeat (2) @(posedge clk); 
+        #1; // Pequeno delay após a borda para estabilizar
 
-        // Amostra no meio do ciclo 2 de reset
-        wait_cycles(2);
+        check("PC == 0x00000000 durante reset",   pc_out === 32'h0000_0000);
+        check("mem_write == 0 durante reset",      mem_write === 1'b0);
+
+        // Libera o reset sincronizado com a borda
+        @(posedge clk);
+        #1;
+        rst_n = 1; 
+        
+        // Agora o processador começa o Ciclo 1 (ADDI $s0) a partir daqui
 
         check("PC == 0x00000000 durante reset",   pc_out === 32'h0000_0000);
         check("mem_write == 0 durante reset",      mem_write === 1'b0);
