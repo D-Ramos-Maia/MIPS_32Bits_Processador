@@ -66,11 +66,23 @@ module mips_top_tb;
     endtask
 
     // -------------------------------------------------------------------------
-    //  Tarefa: aguarda N ciclos de clock (borda de subida)
+    //  Tarefa: avança N ciclos e amostra no MEIO do último ciclo (negedge)
+    //  Isso garante que a lógica combinacional já propagou, mas a borda de
+    //  subida que avança o PC ainda não ocorreu — timing correto para checar
+    //  alu_result e sinais combinacionais do ciclo atual.
     // -------------------------------------------------------------------------
     task automatic wait_cycles(input int unsigned n);
+        // Avança (n-1) ciclos completos
+        if (n > 1) repeat (n-1) @(posedge clk);
+        // No último ciclo, amostra na borda de descida (meio do ciclo)
+        @(negedge clk);
+        #1;
+    endtask
+
+    // Avança ciclos completos sem amostrar (usado para avançar estado)
+    task automatic advance_cycles(input int unsigned n);
         repeat (n) @(posedge clk);
-        #1; // pequeno atraso após a borda para amostrar saídas estabilizadas
+        #1;
     endtask
 
     // -------------------------------------------------------------------------
@@ -93,7 +105,7 @@ module mips_top_tb;
         clk   = 0;
         rst_n = 0;  // Ativa reset (ativo baixo)
 
-        // Aguarda 2 ciclos em reset
+        // Amostra no meio do ciclo 2 de reset
         wait_cycles(2);
 
         check("PC == 0x00000000 durante reset",   pc_out === 32'h0000_0000);
@@ -101,55 +113,73 @@ module mips_top_tb;
 
         // =====================================================================
         //  TESTE 2: Ciclo 1 — ADDI $s0, $zero, 5
-        //    Instrução: 0x20100005
-        //    $s0 (reg 16) deve receber 5 após a borda de escrita
+        //    Instrução: 0x20100005  |  PC=0x00
+        //    Amostramos no negedge do ciclo 1: alu_result=5, PC ainda=0x00
+        //    Após a posedge: PC avança para 0x04 e $s0 é escrito
         // =====================================================================
         $display("\n--- BLOCO 2: ADDI $s0, $zero, 5 ---");
 
-        rst_n = 1;              // Libera reset
-        wait_cycles(1);         // Executa ciclo da instrução em PC=0x00
+        rst_n = 1;
+        wait_cycles(1);  // negedge do ciclo 1 — lógica combinacional estável
 
-        check("PC == 0x00000004 (apos ADDI $s0)",
-              pc_out === 32'h0000_0004);
-        check("ALU result == 5 (imediato para $s0)",
+        check("PC == 0x00000000 (durante ADDI $s0, antes de avançar)",
+              pc_out === 32'h0000_0000);
+        check("ALU result == 5 (imediato ADDI $s0)",
               alu_result === 32'd5);
-        check("$s0 == 5",
-              dut.reg_file.registers[16] === 32'd5);
         check("mem_write == 0 (ADDI nao escreve na mem)",
               mem_write === 1'b0);
 
-        // =====================================================================
-        //  TESTE 3: Ciclo 2 — ADDI $s1, $zero, 10
-        //    Instrução: 0x2011000A
-        //    $s1 (reg 17) deve receber 10
-        // =====================================================================
-        $display("\n--- BLOCO 3: ADDI $s1, $zero, 10 ---");
-
-        wait_cycles(1);         // Executa ciclo da instrução em PC=0x04
-
-        check("PC == 0x00000008 (apos ADDI $s1)",
-              pc_out === 32'h0000_0008);
-        check("ALU result == 10 (imediato para $s1)",
-              alu_result === 32'd10);
-        check("$s1 == 10",
-              dut.reg_file.registers[17] === 32'd10);
-        check("$s0 ainda == 5 (sem regressao)",
+        // Deixa a posedge acontecer: PC -> 0x04, $s0 escrito
+        advance_cycles(1);
+        check("PC == 0x00000004 (apos posedge do ciclo 1)",
+              pc_out === 32'h0000_0004);
+        check("$s0 == 5 (escrito na posedge)",
               dut.reg_file.registers[16] === 32'd5);
 
         // =====================================================================
+        //  TESTE 3: Ciclo 2 — ADDI $s1, $zero, 10
+        //    Instrução: 0x2011000A  |  PC=0x04
+        //    Amostramos no negedge do ciclo 2: alu_result=10, PC ainda=0x04
+        // =====================================================================
+        $display("\n--- BLOCO 3: ADDI $s1, $zero, 10 ---");
+
+        // Já estamos após a posedge do ciclo 1 (PC=0x04 estável)
+        // Aguarda o negedge do ciclo 2 para amostrar combinacional
+        @(negedge clk); #1;
+
+        check("PC == 0x00000004 (durante ADDI $s1, antes de avançar)",
+              pc_out === 32'h0000_0004);
+        check("ALU result == 10 (imediato ADDI $s1)",
+              alu_result === 32'd10);
+        check("$s0 ainda == 5 (sem regressao)",
+              dut.reg_file.registers[16] === 32'd5);
+
+        // Deixa a posedge acontecer: PC -> 0x08, $s1 escrito
+        advance_cycles(1);
+        check("PC == 0x00000008 (apos posedge do ciclo 2)",
+              pc_out === 32'h0000_0008);
+        check("$s1 == 10 (escrito na posedge)",
+              dut.reg_file.registers[17] === 32'd10);
+
+        // =====================================================================
         //  TESTE 4: Ciclo 3 — ADD $s2, $s0, $s1
-        //    Instrução: 0x02119020
-        //    $s2 (reg 18) deve receber 5 + 10 = 15
+        //    Instrução: 0x02119020  |  PC=0x08
+        //    Amostramos no negedge do ciclo 3: alu_result=15, PC ainda=0x08
         // =====================================================================
         $display("\n--- BLOCO 4: ADD $s2, $s0, $s1 ---");
 
-        wait_cycles(1);         // Executa ciclo da instrução em PC=0x08
+        @(negedge clk); #1;
 
-        check("PC == 0x0000000C (apos ADD $s2)",
-              pc_out === 32'h0000_000C);
+        check("PC == 0x00000008 (durante ADD $s2, antes de avançar)",
+              pc_out === 32'h0000_0008);
         check("ALU result == 15 (5 + 10)",
               alu_result === 32'd15);
-        check("$s2 == 15",
+
+        // Deixa a posedge acontecer: PC -> 0x0C, $s2 escrito
+        advance_cycles(1);
+        check("PC == 0x0000000C (apos posedge do ciclo 3)",
+              pc_out === 32'h0000_000C);
+        check("$s2 == 15 (escrito na posedge)",
               dut.reg_file.registers[18] === 32'd15);
         check("$s0 nao foi alterado pelo ADD",
               dut.reg_file.registers[16] === 32'd5);
@@ -171,7 +201,7 @@ module mips_top_tb;
         $display("\n--- BLOCO 6: Novo Reset ---");
 
         rst_n = 0;
-        wait_cycles(1);
+        advance_cycles(1);
 
         check("PC retorna a 0x00000000 apos segundo reset",
               pc_out === 32'h0000_0000);
