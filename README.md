@@ -74,6 +74,7 @@ This repository contains all the files necessary for the design, testing, and ph
 * **`componente` folder**: Contains the source code for all the fundamental blocks required for processor manufacturing.
 * **`testbench` folder**: Includes the test modules that individually validate each component from the previous folder.
 * **`Arquivos_.vcd` folder**: Contains waveform files (.vcd) that record the temporal behavior of components during tests.
+* **`mips_top.spice` file**: The file that generates the post-layout of the project.
 * **`MIPS_32bits.gds` file**: This is the final physical layout file. It integrates all components and is ready to be sent to production (foundry).
 
 ---
@@ -149,7 +150,7 @@ Este modelo é fundamental para o ensino de arquitetura de computadores por sua 
 
 Detalhes do que há nesse repositório. O objetivo final deste repositório é ter os componentes necessários para a produção da mesma. Todos os componentes necessários para tal estão na pasta `componente`.
 
-As outras pastas têm uma função distinta. E o arquivo `MIPS_32bits.gds` já é o resultado final do que esses componentes em conjuntos, já prontos para a produção.
+As outras pastas têm uma função distinta. O arquivo `mips_top.spice`, é o arquivo que gera o pós-layout do projeto. E o arquivo `MIPS_32bits.gds` já é o resultado final do que esses componentes em conjuntos, já prontos para a produção.
 
 A pasta `testbench` tem componentes que testam todos os componentes da pasta `componente`.
 
